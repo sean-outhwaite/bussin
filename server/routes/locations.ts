@@ -19,6 +19,7 @@ router.get('/', async (req, res) => {
   const [month, day, year] = nztFormattedDate.split('/')
   const finalFormattedDate = `${year}-${month}-${day}`
   const currentHour = date.getHours()
+  console.log(currentHour)
   try {
     const response = await request
       .get(
