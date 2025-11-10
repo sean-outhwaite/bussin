@@ -25,8 +25,8 @@ router.get('/', async (req, res) => {
         `https://api.at.govt.nz/gtfs/v3/stops/7151-93995941/stoptrips?filter[date]=${finalFormattedDate}&filter[start_hour]=${currentHour}&filter%5Bhour_range%5D=1`,
       )
       .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
-    const test = JSON.parse(response.text)
-    const trips = getTrips(test)
+    const stop = JSON.parse(response.text)
+    const trips = getTrips(stop)
 
     const locations = await request
       .get(
@@ -44,5 +44,3 @@ router.get('/', async (req, res) => {
 })
 export default router
 
-//
-// https://api.at.govt.nz/realtime/legacy/vehiclelocations?tripid=515-99012-67200-2-f81862b7

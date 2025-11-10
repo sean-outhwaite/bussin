@@ -30,7 +30,7 @@ const Home = () => {
     handleGetLocations()
   },[])
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <img src='/giphy.gif' alt='moving bus'/>
 
   if (error) {
     return <p>There was an error</p>

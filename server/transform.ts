@@ -55,7 +55,7 @@ const routeIDs = [
 ]
 
 export function getTrips(stopTrips: stopTrip) {
-  const trips = []
+  const trips: string[] = []
 
   stopTrips.data.forEach((x) => {
     if (routeIDs.includes(x.attributes.route_id))
