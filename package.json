@@ -28,7 +28,9 @@
     ]
   },
   "dependencies": {
+    "@vis.gl/react-google-maps": "^1.7.1",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^4.17.2",
     "superagent": "^10.2.1"
   },

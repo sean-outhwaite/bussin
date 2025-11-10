@@ -1,28 +1,58 @@
-import { useState } from 'react'
-import { getGreeting } from '../apiClient.ts'
+import { useState, useEffect } from 'react'
+import {  getLocations } from '../apiClient.ts'
 import { useQuery } from '@tanstack/react-query'
+import { LocationData, Poi } from '../../models/location.ts'
+import { getLatLong } from '../locationHandler.ts'
+import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps'
 
 const Home = () => {
-  const [count, setCount] = useState(0)
+  // const [locationData, setLocationData] = useState<LocationData | null>(null)
+  const [loading, setLoading] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [latLongs, setLatLongs] = useState<Poi[] | null>(null)
 
-  const {
-    data: greeting,
-    isError,
-    isPending,
-  } = useQuery({ queryKey: ['greeting', count], queryFn: getGreeting })
 
-  if (isPending) return <p>Loading...</p>
+    const handleGetLocations = async () => {
+    setLoading('random')
+    setError(null)
+    try {
+      const data = await getLocations()
+      setLatLongs(getLatLong(data.data))
+      // setLocationData(data)
+    } catch (err) {
+      setError('Failed to fetch random affirmation')
+      console.error(err)
+    }
+    setLoading(null)
+  }
+
+  useEffect( ()=>{
+    handleGetLocations()
+  },[])
+
+  if (loading) return <p>Loading...</p>
+
+  if (error) {
+    return <p>There was an error</p>
+  }
 
   return (
     <>
-      {count}
-      <h1 className="text-3xl font-bold underline">{greeting}</h1>
-      {isError && (
-        <p style={{ color: 'red' }}>
-          There was an error retrieving the greeting.
-        </p>
-      )}
-      <button onClick={() => setCount(count + 1)}>Click</button>
+      {latLongs && (
+          <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_KEY}>
+            <Map
+              style={{ width: '80vw', height: '50vh' }}
+              defaultCenter={{ lat: -36.86226, lng: 174.760945 }}
+              defaultZoom={15}
+              gestureHandling="greedy"
+              disableDefaultUI
+            >
+              {latLongs?.map((l,idx) => (
+                <Marker key={l.key + idx} label={l.key} position={l.location} />
+              ))}
+            </Map>
+          </APIProvider>
+        )}
     </>
   )
 }
