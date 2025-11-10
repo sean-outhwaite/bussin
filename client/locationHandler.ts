@@ -1,3 +1,4 @@
+/// <reference types="@types/google.maps" />
 import { Locations } from '../models/location'
 
 type Poi = { key: string; location: google.maps.LatLngLiteral }
