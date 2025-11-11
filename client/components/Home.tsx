@@ -1,5 +1,5 @@
 import { getLatLong } from '../locationHandler.ts'
-import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps'
+import { AdvancedMarker, APIProvider, Map, Marker, Pin } from '@vis.gl/react-google-maps'
 import { useLocations } from '../hooks.tsx'
 
 const Home = () => {
@@ -21,11 +21,16 @@ const Home = () => {
               defaultCenter={{ lat: -36.86226, lng: 174.760945 }}
               defaultZoom={15}
               gestureHandling="greedy"
+              mapId='busMap'
               disableDefaultUI
             >
               {latLongs?.map((l,idx) => (
                 <Marker key={l.key + idx} label={l.key} position={l.location} />
               ))}
+              <AdvancedMarker key='stop'  position={{lat:-36.86226, lng: 174.760945}} >
+              <Pin  background={'#FBBC04'} glyphColor={'#000'} borderColor={'#000'} />
+
+              </AdvancedMarker>
             </Map>
           </APIProvider>
         )}
