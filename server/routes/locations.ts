@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
   try {
     const response = await request
       .get(
-        `https://api.at.govt.nz/gtfs/v3/stops/7151-93995941/stoptrips?filter[date]=${finalFormattedDate}&filter[start_hour]=${currentHour}&filter%5Bhour_range%5D=1`,
+        `https://api.at.govt.nz/gtfs/v3/stops/7151-93995941/stoptrips?filter[date]=${finalFormattedDate}&filter[start_hour]=${currentHour}&filter%5Bhour_range%5D=2`,
       )
       .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
     const stop = JSON.parse(response.text)

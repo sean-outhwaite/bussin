@@ -56,9 +56,11 @@ const routeIDs = [
 
 export function getTrips(stopTrips: stopTrip) {
   const trips: string[] = []
+  const date = new Date()
+  const time = date.toTimeString().slice(0,8)
 
   stopTrips.data.forEach((x) => {
-    if (routeIDs.includes(x.attributes.route_id))
+    if (routeIDs.includes(x.attributes.route_id) && x.attributes.arrival_time > time )
       trips.push(x.attributes.trip_id)
   })
   return trips
