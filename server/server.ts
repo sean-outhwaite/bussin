@@ -6,14 +6,6 @@ import locations from './routes/locations.ts'
 
 const server = express()
 
-server.get('/api/v1/greeting', (req, res) => {
-  const greetings = ['hola', 'hi', 'hello', 'howdy']
-  const index = Math.floor(Math.random() * greetings.length)
-  console.log(index)
-  res.json({ greeting: greetings[index] })
-})
-
-
 server.use(express.json())
 server.use(cors('*' as CorsOptions))
 server.use('/api/v1/locations', locations)

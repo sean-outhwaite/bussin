@@ -11,6 +11,7 @@ const Home = () => {
     console.log(error)
     return <p>There was an error</p>
   }
+
   const latLongs = getLatLong(data.data)
   return (
     <>
@@ -25,10 +26,10 @@ const Home = () => {
               disableDefaultUI
             >
               {latLongs?.map((l,idx) => (
-                <Marker key={l.key + idx} label={l.key} position={l.location} />
+                <Marker  key={l.key + idx} icon={'/bus.png'} label={{text:l.key.slice(0,3), color:'#ffffff'}} position={l.location} />
               ))}
               <AdvancedMarker key='stop'  position={{lat:-36.86226, lng: 174.760945}} >
-              <Pin  background={'#FBBC04'} glyphColor={'#000'} borderColor={'#000'} />
+              <Pin  background={'#B816F0'}  glyphColor={'#000'} borderColor={'#000'} />
 
               </AdvancedMarker>
             </Map>
