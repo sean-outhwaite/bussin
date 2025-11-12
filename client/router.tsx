@@ -7,7 +7,7 @@ import {
 import App from './components/App'
 import Home from './components/Home'
 
-const routes = createRoutesFromElements(
+export const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route index element={<Home />} />
   </Route>
