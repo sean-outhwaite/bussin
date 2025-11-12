@@ -7,7 +7,16 @@ export function useLocations (){
     queryKey:['locations'],
     queryFn: async ()=> {
       const res = await API.getLocations()
-      console.log(res.body)
+      return res
+    }
+  })
+}
+
+export function useTimes (){
+  return useQuery({
+    queryKey:['times'],
+    queryFn: async ()=> {
+      const res = await API.getTimes()
       return res
     }
   })

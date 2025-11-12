@@ -7,3 +7,8 @@ export async function getLocations() {
   const response = await request.get(`${rootURL}/locations`)
   return response.body
 }
+
+export async function getTimes() {
+  const response = await request.get(`${rootURL}/times`)
+  return response.body
+}
