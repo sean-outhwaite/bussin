@@ -83,3 +83,10 @@ export interface Header {
 }
 
 export type Poi = { key: string; location: google.maps.LatLngLiteral }
+
+export interface TripUpdate {
+    status:   string;
+    response: Response;
+    error:    null;
+}
+

@@ -1,5 +1,6 @@
 import { json } from 'node:stream/consumers'
-import { useTimes } from '../hooks.tsx'
+import { useLocations, useTimes } from '../hooks.tsx'
+import { tripFilter } from '../locationHandler.ts'
 
 
 const ArrivalBoard = ()=> {
@@ -11,13 +12,25 @@ const ArrivalBoard = ()=> {
     console.log(error)
     return <p>There was an error</p>
   }
-  console.log(JSON.parse(data.data).response.entity)
+  console.log(JSON.parse(data.data))
+  const updates = (tripFilter(JSON.parse(data.data).response.entity))
+  const timeConvert = function(t){
+    const dateObj = new Date(t * 1000)
+    return dateObj
+  }
   return (
 
     <>
-    <p>{JSON.stringify(data)}</p>
+   {updates.map((t)=> (
+    <div key={t.id}>
+      <p>{t.trip_update.trip.route_id}</p>
+      <p>{String(timeConvert(t.trip_update.stop_time_update.arrival.time))}</p>
+    </div>
+
+   ))}
     </>
   )
 }
 
 export default ArrivalBoard
+
