@@ -1,7 +1,7 @@
 import express from 'express'
 import request from 'superagent'
 import 'dotenv/config'
-import { getTrips } from '../transform'
+import { Trips } from '../../models/trips'
 
 const apiKey = process.env.subscription_key
 const router = express.Router()
@@ -19,6 +19,17 @@ router.get('/', async (req, res) => {
   const [month, day, year] = nztFormattedDate.split('/')
   const finalFormattedDate = `${year}-${month}-${day}`
   const currentHour = date.getHours()
+
+  const routeIDs = [
+  '25B-202',
+  '25L-202',
+  '27W-202',
+  '27H-202',
+  '22N-202',
+  '22R-202',
+  '24R-202',
+  '30-202',
+]
   try {
     const response = await request
       .get(
@@ -26,22 +37,23 @@ router.get('/', async (req, res) => {
       )
       .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
     const stop = JSON.parse(response.text)
-    const trips = getTrips(stop)
+      const filtered: Trips[]= []
 
-    const locations = await request
-      .get(
-        `https://api.at.govt.nz/realtime/legacy/vehiclelocations?tripid=${trips}`,
-      )
-      .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
+  // const date = new Date()
+  // const time = date.toTimeString().slice(0,8)
 
-    res.json({
-      data: locations.text,
+    stop.data.forEach((x: Trips )=>{
+    if (routeIDs.includes(x.attributes.route_id) )
+      filtered.push(x)
     })
+
+
+    
+    res.json(filtered
+    )
   } catch (err) {
     console.log(err)
     res.sendStatus(500)
   }
 })
-
 export default router
-

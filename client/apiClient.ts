@@ -12,3 +12,10 @@ export async function getTimes() {
   const response = await request.get(`${rootURL}/times`)
   return response.body
 }
+
+
+export async function getTrips() {
+  const response = await request.get(`${rootURL}/trips`)
+  return response.body
+}
+

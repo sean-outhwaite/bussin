@@ -13,6 +13,16 @@ const Home = () => {
   }
 
   const latLongs = getLatLong(data.data)
+
+  const occupancy = {
+    0: '#ffffff',
+    1: '#44ce1b',
+    2: '#bbdb44',
+    3:'#f7e379',
+    4:'#f2a134',
+    5:'#e51f1f',
+    6: 'FF0000'
+  }
   return (
     <>
       {latLongs && (
@@ -26,7 +36,7 @@ const Home = () => {
               disableDefaultUI
             >
               {latLongs?.map((l,idx) => (
-                <Marker  key={l.key + idx} icon={'/bus.png'} label={{text:l.key.slice(0,3), color:'#ffffff'}} position={l.location} />
+                <Marker  key={l.key + idx} icon={'/bus.png'} label={{text:l.key.slice(0,l.key.indexOf('-')), color:`${occupancy[l.occ]}`}} position={l.location} />
               ))}
               <AdvancedMarker key='stop'  position={{lat:-36.86226, lng: 174.760945}} >
               <Pin  background={'#B816F0'}  glyphColor={'#000'} borderColor={'#000'} />

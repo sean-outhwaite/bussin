@@ -21,3 +21,14 @@ export function useTimes (){
     }
   })
 }
+
+
+export function useTrips (){
+  return useQuery({
+    queryKey:['trips'],
+    queryFn: async ()=> {
+      const res = await API.getTrips()
+      return res
+    }
+  })
+}
