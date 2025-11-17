@@ -39,7 +39,7 @@ router.get('/', async (req, res) => {
     // Fetches static schedule data
     const response = await request
       .get(
-        `https://api.at.govt.nz/gtfs/v3/stops/7151-93995941/stoptrips?filter[date]=${finalFormattedDate}&filter[start_hour]=${currentHour -1}&filter%5Bhour_range%5D=2`,
+        `https://api.at.govt.nz/gtfs/v3/stops/7151-93995941/stoptrips?filter[date]=${finalFormattedDate}&filter[start_hour]=${currentHour -1}&filter%5Bhour_range%5D=3`,
       )
       .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
     const stop = JSON.parse(response.text)

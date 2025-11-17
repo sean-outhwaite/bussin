@@ -2,7 +2,6 @@ import * as Path from 'node:path'
 import express from 'express'
 import cors, { CorsOptions } from 'cors'
 import locations from './routes/locations.ts'
-import times from './routes/times.ts'
 import trips from './routes/trips.ts'
 
 
