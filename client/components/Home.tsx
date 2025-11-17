@@ -23,8 +23,9 @@ const Home = () => {
     5:'#e51f1f',
     6: 'FF0000'
   }
+
   return (
-    <>
+    <div className='flex justify-center'>
       {latLongs && (
           <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_KEY}>
             <Map
@@ -32,20 +33,20 @@ const Home = () => {
               defaultCenter={{ lat: -36.86226, lng: 174.760945 }}
               defaultZoom={15}
               gestureHandling="greedy"
-              mapId='busMap'
+              mapId='f570965d1003d0c912a3687f'
               disableDefaultUI
+              colorScheme={'FOLLOW_SYSTEM'}
             >
               {latLongs?.map((l,idx) => (
-                <Marker  key={l.key + idx} icon={'/bus.png'} label={{text:l.key.slice(0,l.key.indexOf('-')), color:`${occupancy[l.occ]}`}} position={l.location} />
+                <Marker key={l.key + idx} icon={'/bus.png'} label={{text:l.key.slice(0,l.key.indexOf('-')), color:`${occupancy[l.occ]}`, fontSize:'medium'}} position={l.location} />
               ))}
               <AdvancedMarker key='stop'  position={{lat:-36.86226, lng: 174.760945}} >
               <Pin  background={'#B816F0'}  glyphColor={'#000'} borderColor={'#000'} />
-
               </AdvancedMarker>
             </Map>
           </APIProvider>
         )}
-    </>
+    </div>
   )
 }
 
