@@ -3,6 +3,7 @@ import {  useTrips } from '../hooks.tsx'
 const ArrivalBoard = ()=> {
   const {data, isError, isPending, error} = useTrips()
   const currentTime = new Date()
+  const [day, month, year] = currentTime.toLocaleDateString().split('/')
 
   if (isPending) return <img src='/giphy.gif' alt='moving bus'/>
 
@@ -13,8 +14,7 @@ const ArrivalBoard = ()=> {
 
   // Adds delay to scheduled time
   const timeConvert = function(t: string, d: number){
-    const dateObj = new Date(`${currentTime.toISOString().slice(0, currentTime.toISOString().indexOf('T') +1)}${t}`)
-
+    const dateObj = new Date(`${year}-${month}-${day}T${t}`)
     const time = dateObj.getTime() + (d * 1000)
 
 
@@ -23,12 +23,12 @@ const ArrivalBoard = ()=> {
   }
 
   const timeDiff = function (t:string, d:number){
-  const dateObj = new Date(`${currentTime.toISOString().slice(0, currentTime.toISOString().indexOf('T') +1)}${t}`)
-
+    console.log(currentTime.toLocaleDateString())
+    
+    const dateObj = new Date(`${year}-${month}-${day}T${t}`)
     const time = dateObj.getTime() + (d * 1000)
     const compareTime = currentTime.getTime()
 
-    console.log(time, compareTime)
 
     const diff = (time - compareTime) / 1000
 
