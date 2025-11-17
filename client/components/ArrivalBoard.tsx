@@ -40,14 +40,14 @@ const ArrivalBoard = ()=> {
   return (
 
    <>
-   <main className='grid grid-cols-2 md:grid-cols-3 gap-4'>
+   <main className='grid grid-cols-2 md:grid-cols-3 gap-4 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>
    {data.map((t)=> (
     <div key={t.id}className='bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs hover:bg-neutral-secondary-medium'>
-      <p className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>{t.attributes.route_id}</p>
-      <p className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>Arrival: {timeDiff(t.attributes.arrival_time, t.delay)}</p>
-      <p className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>Scheduled: {t.attributes.arrival_time}</p>
-      <p className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>Actual: {timeConvert(t.attributes.arrival_time, t.delay)}</p>
-      <p className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>Delay: {t.delay}</p>
+      <p className='text-blue-500'>{t.attributes.route_id.slice(0,t.attributes.route_id.indexOf('-'))}</p>
+      <p >Arrival: <span className='dark:text-green-300 text-green-600'>{timeDiff(t.attributes.arrival_time, t.delay)}</span></p>
+      <p className='lg:text-sm'>Scheduled: {t.attributes.arrival_time}</p>
+      <p className='lg:text-sm'>Actual: {timeConvert(t.attributes.arrival_time, t.delay)}</p>
+      <p className='lg:text-sm'>Delay: {t.delay}</p>
     </div>
 
    ))}
