@@ -27,14 +27,3 @@ export const getLatLong = function (locations: string) {
   })
   return obj
 }
-
-
-// export const tripFilter= function(arr){
-  
-//   const newArr =[]
-//   arr.forEach((t)=>{
-//     if (t.trip_update.stop_time_update.stop_id == '7151-93995941' && t.trip_update.stop_time_update.arrival) newArr.push(t)
-//   })
-// console.log(newArr)
-// return newArr
-// }

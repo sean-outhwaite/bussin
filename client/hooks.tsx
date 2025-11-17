@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
 import * as API from './apiClient'
+import { TripWithDelay } from "../models/trips";
+
 
 export function useLocations (){
   return useQuery({
@@ -28,7 +30,7 @@ export function useTrips (){
     queryKey:['trips'],
     queryFn: async ()=> {
       const res = await API.getTrips()
-      return res
+      return res as TripWithDelay[]
     }
   })
 }

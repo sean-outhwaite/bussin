@@ -12,7 +12,7 @@ const Home = () => {
     return <p>There was an error</p>
   }
 
-  const latLongs = getLatLong(data.data)
+  const latLongs = getLatLong(data)
 
   const occupancy = {
     0: '#ffffff',

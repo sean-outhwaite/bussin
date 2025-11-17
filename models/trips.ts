@@ -33,3 +33,7 @@ export enum StopID {
 export enum Type {
     Stoptrip = "stoptrip",
 }
+
+export interface TripWithDelay extends Trips{
+  delay: number
+}

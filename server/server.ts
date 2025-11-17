@@ -11,7 +11,6 @@ const server = express()
 server.use(express.json())
 server.use(cors('*' as CorsOptions))
 server.use('/api/v1/locations', locations)
-server.use('/api/v1/times', times)
 server.use('/api/v1/trips',trips)
 
 if (process.env.NODE_ENV === 'production') {

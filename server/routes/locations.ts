@@ -34,9 +34,9 @@ router.get('/', async (req, res) => {
       )
       .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
 
-    res.json({
-      data: locations.text,
-    })
+    res.json(
+      locations.text,
+    )
   } catch (err) {
     console.log(err)
     res.sendStatus(500)

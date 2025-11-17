@@ -1,6 +1,4 @@
 import {  useTrips } from '../hooks.tsx'
-// import { tripFilter } from '../locationHandler.ts'
-
 
 const ArrivalBoard = ()=> {
   const {data, isError, isPending, error} = useTrips()
@@ -12,32 +10,34 @@ const ArrivalBoard = ()=> {
     return <p>There was an error</p>
   }
 
-  // const updates = (tripFilter(JSON.parse(data.data).response.entity))
+  // Adds delay to scheduled time
   const timeConvert = function(t: string, d: number){
     const dateObj = new Date(`2025-11-17T${t}`)
 
-    const time = dateObj.getTime() + (d* 1000)
+    const time = dateObj.getTime() + (d * 1000)
     console.log(dateObj.getTime())
 
     const arrival = new Date(time).toLocaleTimeString('en-US')
    return arrival
   }
 
-console.log(data)
   return (
 
    <>
+   <main className='grid grid-cols-2 md:grid-cols-3 gap-4'>
    {data.map((t)=> (
-    <div key={t.id}className='mb-4 text-sm font-extrabold leading-none tracking-tight text-gray-900 md:text-sm lg:text-sm dark:text-white'>
-      <p>{t.attributes.route_id}</p>
-      <p>{t.attributes.arrival_time}</p>
-      <p>{timeConvert(t.attributes.arrival_time, t.delay)}</p>
-      <p>{t.delay}</p>
+    <div key={t.id}className='bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs hover:bg-neutral-secondary-medium'>
+      <p className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>{t.attributes.route_id}</p>
+      <p className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>Scheduled: {t.attributes.arrival_time}</p>
+      <p className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>Actual: {timeConvert(t.attributes.arrival_time, t.delay)}</p>
+      <p className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white'>Delay: {t.delay}</p>
     </div>
 
    ))}
+     </main>
     </>
   )
+
 }
 
 export default ArrivalBoard

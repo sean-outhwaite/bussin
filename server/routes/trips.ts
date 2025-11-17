@@ -2,9 +2,12 @@ import express from 'express'
 import request from 'superagent'
 import 'dotenv/config'
 import { Trips } from '../../models/trips'
+import { Entity } from '../../models/tripUpdate'
 
 const apiKey = process.env.subscription_key
 const router = express.Router()
+
+
 
 router.get('/', async (req, res) => {
   const date = new Date()
@@ -57,7 +60,7 @@ router.get('/', async (req, res) => {
           )
           .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
 
-    const delays = JSON.parse(updates.text).response.entity
+    const delays: Entity[] = JSON.parse(updates.text).response.entity
 
 
     // Combines the delays from the trip updates feed with the static schedule data
