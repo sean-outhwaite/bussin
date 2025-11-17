@@ -80,7 +80,7 @@ router.get('/', async (req, res) => {
       return unixTime + (t.delay * 1000) > date.getTime()
 
     })
-    console.log(currentTrips)
+
     res.json(currentTrips
     )
   } catch (err) {
