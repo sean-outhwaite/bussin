@@ -25,16 +25,7 @@ router.get('/', async (req, res) => {
 
   const dateTemplate = `${year}-${month}-${day}T`
 
-  const routeIDs = [
-  '25B-202',
-  '25L-202',
-  '27W-202',
-  '27H-202',
-  '22N-202',
-  '22R-202',
-  '24R-202',
-  '30-202',
-]
+
   try {
     // Fetches static schedule data
     const response = await request
@@ -42,17 +33,11 @@ router.get('/', async (req, res) => {
         `https://api.at.govt.nz/gtfs/v3/stops/7151-93995941/stoptrips?filter[date]=${finalFormattedDate}&filter[start_hour]=${currentHour -1}&filter%5Bhour_range%5D=3`,
       )
       .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
-    const stop = JSON.parse(response.text)
-      const filtered: Trips[]= []
 
-  
-  // Filters for the routes I care about
-    stop.data.forEach((x: Trips )=>{
-    if (routeIDs.includes(x.attributes.route_id) )
-      filtered.push(x)
-    })
+    const stop: {data:Trips[]} = JSON.parse(response.text)
+ 
 
-    const ids = filtered.map((t)=> t.attributes.trip_id)
+    const ids = stop.data.map((t)=> t.attributes.trip_id)
     // Fetches trip updates from the live API
     const updates = await request
           .get(
@@ -64,7 +49,7 @@ router.get('/', async (req, res) => {
 
 
     // Combines the delays from the trip updates feed with the static schedule data
-    const withDelays = filtered.map((t)=>{
+    const withDelays = stop.data.map((t)=>{
       const delay = delays.find((d)=> d.id === t.attributes.trip_id)
       if (delay){
         return {...t, delay: delay.trip_update.delay}
@@ -73,6 +58,8 @@ router.get('/', async (req, res) => {
       }
     })
 
+
+    // Filters any trips which should have departed already
     const currentTrips = withDelays.filter((t)=> {
       const dateString = new Date(dateTemplate + t.attributes.arrival_time)
       const unixTime = dateString.getTime()

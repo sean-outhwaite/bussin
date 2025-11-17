@@ -52,6 +52,7 @@ const routeIDs = [
   '22R-202',
   '24R-202',
   '30-202',
+  '24B-202'
 ]
 
 export function getTrips(stopTrips: stopTrip) {
