@@ -37,3 +37,9 @@ export enum Type {
 export interface TripWithDelay extends Trips{
   delay: number
 }
+
+export interface FullTrip extends Trips{
+  delay: number,
+  actual: string,
+  arrival: string
+}

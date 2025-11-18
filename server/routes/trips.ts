@@ -67,8 +67,19 @@ router.get('/', async (req, res) => {
       return unixTime + (t.delay * 1000) > date.getTime()
 
     })
+    // Adds the ETA and Actual arrival times
+    const fullTrips = currentTrips.map((t)=>{
+    const dateObj = new Date(`${year}-${month}-${day}T${t.attributes.arrival_time}`)
+    const time = dateObj.getTime() + (t.delay * 1000)
+    const compareTime = date.getTime()
 
-    res.json(currentTrips
+    const timeString = new Date(time).toTimeString().slice(0,8)
+    const diff = (time - compareTime) / 1000
+
+    return {...t, actual: timeString  ,arrival: diff > 60 ? `${Math.round(diff / 60)} min` : `Now`}
+    })
+
+    res.json(fullTrips
     )
   } catch (err) {
     console.log(err)

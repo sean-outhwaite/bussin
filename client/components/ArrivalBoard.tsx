@@ -4,8 +4,6 @@ import { pageOutletContext } from './App.tsx'
 
 const ArrivalBoard = ()=> {
   const {data, isError, isPending, error} = useTrips()
-  const currentTime = new Date()
-  const [day, month, year] = currentTime.toLocaleDateString().split('/')
   const {setPage} = useOutletContext<pageOutletContext>()
   setPage('board')
 
@@ -17,31 +15,6 @@ const ArrivalBoard = ()=> {
     return <p>There was an error</p>
   }
 
-  // Adds delay to scheduled time
-  const timeConvert = function(t: string, d: number){
-    const dateObj = new Date(`${year}-${month}-${day}T${t}`)
-    const time = dateObj.getTime() + (d * 1000)
-
-
-    const arrival = new Date(time).toLocaleTimeString('en-US')
-   return arrival
-  }
-
-  const timeDiff = function (t:string, d:number){
-    console.log(currentTime.toLocaleDateString())
-    
-    const dateObj = new Date(`${year}-${month}-${day}T${t}`)
-    const time = dateObj.getTime() + (d * 1000)
-    const compareTime = currentTime.getTime()
-
-
-    const diff = (time - compareTime) / 1000
-
-    return diff > 60 ? `${Math.round(diff / 60)} min` : `Now`
-
-  }
-
-
   return (
 
    <>
@@ -49,9 +22,9 @@ const ArrivalBoard = ()=> {
    {data.map((t)=> (
     <div key={t.id}className='bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-lg shadow-xs hover:bg-neutral-secondary-medium'>
       <p role='paragraph' className='text-blue-500'>{t.attributes.route_id.slice(0,t.attributes.route_id.indexOf('-'))}</p>
-      <p role='paragraph' >Arrival: <span className='dark:text-green-300 text-green-600'>{timeDiff(t.attributes.arrival_time, t.delay)}</span></p>
+      <p role='paragraph' >Arrival: <span className={`dark:text-green-300 text-green-600 ${t.arrival === 'Now' ? 'animate-pulse' : '' }`}>{t.arrival}</span></p>
       <p role='paragraph' className='lg:text-sm font-normal'>Scheduled: {t.attributes.arrival_time}</p>
-      <p role='paragraph' className='lg:text-sm font-normal'>Actual: {timeConvert(t.attributes.arrival_time, t.delay)}</p>
+      <p role='paragraph' className='lg:text-sm font-normal'>Actual: {t.actual}</p>
       <p role='paragraph' className='lg:text-sm font-normal'>Delay: {t.delay}</p>
     </div>
 
