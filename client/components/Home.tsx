@@ -13,7 +13,7 @@ const Home = () => {
        setPage('home')
      },[setPage])
 
-  if (isPending) return <img src='/giphy.gif' alt='moving bus'/>
+  if (isPending) return <div className='flex justify-center'><img src='/giphy.gif' alt='moving bus'/> </div>
 
   if (isError) {
     console.log(error)
