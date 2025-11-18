@@ -1,11 +1,16 @@
 import {  useTrips } from '../hooks.tsx'
 import { useOutletContext } from 'react-router'
 import { pageOutletContext } from './App.tsx'
+import { useEffect } from 'react'
 
 const ArrivalBoard = ()=> {
   const {data, isError, isPending, error} = useTrips()
   const {setPage} = useOutletContext<pageOutletContext>()
-  setPage('board')
+
+  useEffect(()=>{
+    setPage('board')
+  },[setPage])
+  
 
   
   if (isPending) return <img src='/giphy.gif' alt='moving bus'/>
