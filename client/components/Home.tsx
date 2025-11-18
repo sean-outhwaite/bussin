@@ -1,9 +1,13 @@
 import { getLatLong } from '../locationHandler.ts'
 import { AdvancedMarker, APIProvider, Map, Marker, Pin } from '@vis.gl/react-google-maps'
 import { useLocations } from '../hooks.tsx'
+import { useOutletContext } from 'react-router'
+import { pageOutletContext } from './App.tsx'
 
 const Home = () => {
   const {data, isError, isPending, error} = useLocations()
+   const {setPage} = useOutletContext<pageOutletContext>()
+  setPage('home')
 
   if (isPending) return <img src='/giphy.gif' alt='moving bus'/>
 

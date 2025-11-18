@@ -1,10 +1,15 @@
 import {  useTrips } from '../hooks.tsx'
+import { useOutletContext } from 'react-router'
+import { pageOutletContext } from './App.tsx'
 
 const ArrivalBoard = ()=> {
   const {data, isError, isPending, error} = useTrips()
   const currentTime = new Date()
   const [day, month, year] = currentTime.toLocaleDateString().split('/')
+  const {setPage} = useOutletContext<pageOutletContext>()
+  setPage('board')
 
+  
   if (isPending) return <img src='/giphy.gif' alt='moving bus'/>
 
   if (isError) {
