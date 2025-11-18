@@ -1,33 +1,20 @@
 import express from 'express'
 import request from 'superagent'
 import 'dotenv/config'
-import { getTrips } from '../transform'
+import { TripWithDelay } from '../../models/trips'
 
 const apiKey = process.env.subscription_key
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  const date = new Date()
-
-  const nztFormattedDate = date.toLocaleString('en-US', {
-    timeZone: 'Pacific/Auckland',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  })
-
-  const [month, day, year] = nztFormattedDate.split('/')
-  const finalFormattedDate = `${year}-${month}-${day}`
-  const currentHour = date.getHours()
   try {
-    const response = await request
-      .get(
-        `https://api.at.govt.nz/gtfs/v3/stops/7151-93995941/stoptrips?filter[date]=${finalFormattedDate}&filter[start_hour]=${currentHour}&filter%5Bhour_range%5D=2`,
-      )
-      .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
-    const stop = JSON.parse(response.text)
-    const trips = getTrips(stop)
+    // Fetch trips for the specific stop that haven't arrived yet
+    const response = await request.get('http://localhost:3000/api/v1/trips')
+    const trips = JSON.parse(response.text).map((t: TripWithDelay)=>{
+      return t.attributes.trip_id
+    })
 
+    // Fetch locations for those active trips
     const locations = await request
       .get(
         `https://api.at.govt.nz/realtime/legacy/vehiclelocations?tripid=${trips}`,
