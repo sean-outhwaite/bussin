@@ -20,6 +20,18 @@ const ArrivalBoard = ()=> {
     return <p>There was an error</p>
   }
 
+  const delayTransformer = function(delay: number){
+    // If number less than 0, make it early etc
+    if (delay > 0){
+      return `${delay > 60 ? `${Math.round(delay / 60)} minutes` : `${delay} seconds`} late`
+    } else if (delay < 0){
+      return `${delay < -60 ? `${Math.round(delay / 60 * -1)} minutes` : `${delay * -1} seconds`} early`
+    } else {
+      return 'On time'
+    }
+  }
+
+
   return (
 
    <>
@@ -30,7 +42,7 @@ const ArrivalBoard = ()=> {
       <p role='paragraph' >Arrival: <span className={`dark:text-green-300 text-green-600 ${t.arrival === 'Now' || t.arrival === '1 min' && 'animate-pulse' }`}>{t.arrival}</span></p>
       <p role='paragraph' className='lg:text-sm font-normal'>Scheduled: {t.attributes.arrival_time}</p>
       <p role='paragraph' className='lg:text-sm font-normal'>Actual: {t.actual}</p>
-      <p role='paragraph' className='lg:text-sm font-normal'>Delay: {t.delay}</p>
+      <p role='paragraph' className='lg:text-sm font-normal'>Delay: {delayTransformer(t.delay)}</p>
     </div>
 
    ))}
