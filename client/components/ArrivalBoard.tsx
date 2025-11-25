@@ -39,8 +39,8 @@ const ArrivalBoard = ()=> {
     <div key={t.id}className='bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-lg shadow-xs hover:bg-neutral-secondary-medium'>
       <p role='paragraph' className='text-blue-500'>{t.attributes.route_id.slice(0,t.attributes.route_id.indexOf('-'))}</p>
       <p role='paragraph' >Arrival: <span className={`dark:text-green-300 text-green-600 ${t.arrival === 'Now' || t.arrival === '1 min' && 'animate-pulse' }`}>{t.arrival}</span></p>
+      <p role='paragraph' className='lg:text-sm font-normal'>Actual: <span className='font-bold'>{t.actual}</span></p>
       <p role='paragraph' className='lg:text-sm font-normal'>Scheduled: {t.attributes.arrival_time}</p>
-      <p role='paragraph' className='lg:text-sm font-normal'>Actual: {t.actual}</p>
       <p role='paragraph' className='lg:text-sm font-normal'>Delay: {delayTransformer(t.delay)}</p>
     </div>
 

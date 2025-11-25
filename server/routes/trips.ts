@@ -79,6 +79,9 @@ router.get('/', async (req, res) => {
     return {...t, actual: timeString  ,arrival: diff > 60 ? `${Math.round(diff / 60)} min` : `Now`}
     })
 
+   fullTrips.sort((a,b)=> a.actual  < b.actual ?   -1 : 1
+   )
+
     res.json(fullTrips
     )
   } catch (err) {
