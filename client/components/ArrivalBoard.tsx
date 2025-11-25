@@ -19,9 +19,8 @@ const ArrivalBoard = ()=> {
     console.log(error)
     return <p>There was an error</p>
   }
-
+  // Converts the delay in seconds to a more readable format
   const delayTransformer = function(delay: number){
-    // If number less than 0, make it early etc
     if (delay > 0){
       return `${delay > 60 ? `${Math.round(delay / 60)} minutes` : `${delay} seconds`} late`
     } else if (delay < 0){
