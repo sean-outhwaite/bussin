@@ -5,6 +5,8 @@ Personal project to display live bus locations and arrival times.
 ## Description
 This project uses the AT and Google Maps APIs to display incoming bus locations as well as their ETAs for the bus stop I use most frequently. Similar to what is available via the AT mobile app.
 
+Google Maps and Auckland Transport API credentials are required to run.
+
 ## Technology
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
