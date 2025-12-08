@@ -28,7 +28,9 @@ it('shows the header', async()=>{
             "trip_id": "25-02505-47100-2-6750e6e5",
             "trip_start_time": "13:05:00"
         },
-        "delay": 87
+        "delay": 87,
+        "actual": "13:42:15",
+        "arrival": 'Now'
     }])
  
 
@@ -52,9 +54,20 @@ expect(arrivalCard).toMatchInlineSnapshot(`
     >
       Arrival: 
       <span
-        class="dark:text-green-300 text-green-600"
+        class="dark:text-green-300 text-green-600 animate-pulse"
       >
         Now
+      </span>
+    </p>,
+    <p
+      class="lg:text-sm font-normal"
+      role="paragraph"
+    >
+      Actual: 
+      <span
+        class="font-bold"
+      >
+        13:42:15
       </span>
     </p>,
     <p
@@ -68,15 +81,8 @@ expect(arrivalCard).toMatchInlineSnapshot(`
       class="lg:text-sm font-normal"
       role="paragraph"
     >
-      Actual: 
-      Invalid Date
-    </p>,
-    <p
-      class="lg:text-sm font-normal"
-      role="paragraph"
-    >
       Delay: 
-      87
+      1 minutes late
     </p>,
   ]
 `)
