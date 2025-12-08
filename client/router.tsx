@@ -5,8 +5,8 @@ import {
 } from 'react-router'
 
 import App from './components/App'
-import Home from './components/Home'
-import ArrivalBoard from './components/ArrivalBoard'
+import Home from './pages/Home'
+import ArrivalBoard from './pages/ArrivalBoard'
 
 export const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>

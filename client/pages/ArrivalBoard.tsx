@@ -1,6 +1,6 @@
 import {  useTrips } from '../hooks.tsx'
 import { useOutletContext } from 'react-router'
-import { pageOutletContext } from './App.tsx'
+import { pageOutletContext } from '../components/App.tsx'
 import { useEffect } from 'react'
 
 const ArrivalBoard = ()=> {
