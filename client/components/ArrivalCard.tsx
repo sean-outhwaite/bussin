@@ -8,13 +8,13 @@ const ArrivalCard = ({trip}: props)=>{
 
 
     const delayTransformer = function(delay: number){
-    if (delay > 0){
-      return `${delay > 60 ? `${Math.round(delay / 60)} minutes` : `${delay} seconds`} late`
-    } else if (delay < 0){
-      return `${delay < -60 ? `${Math.round(delay / 60 * -1)} minutes` : `${delay * -1} seconds`} early`
-    } else {
-      return 'On time'
-    }
+    if(delay === 0) return 'On Time'
+
+    const status = delay <0 ? 'early' : 'late'
+
+    if(delay < 0) delay *= -1
+    
+    return `${delay > 60 ? `${Math.round(delay / 60)} minutes` : `${delay} seconds`} ${status}`
   }
 
   return (    
