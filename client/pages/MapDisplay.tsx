@@ -5,7 +5,7 @@ import { useOutletContext } from 'react-router'
 import { pageOutletContext } from '../components/App.tsx'
 import { useEffect } from 'react'
 
-const Home = () => {
+const MapDisplay = () => {
   const {data, isError, isPending, error} = useLocations()
    const {setPage} = useOutletContext<pageOutletContext>()
 
@@ -22,7 +22,7 @@ const Home = () => {
 
   const latLongs = getLatLong(data)
 
-  const occupancy = {
+  const occupancyColours = {
     0: '#ffffff',
     1: '#44ce1b',
     2: '#bbdb44',
@@ -46,7 +46,7 @@ const Home = () => {
               colorScheme={'FOLLOW_SYSTEM'}
             >
               {latLongs?.map((l,idx) => (
-                <Marker key={l.key + idx} icon={'/bus.png'} label={{text:l.key.slice(0,l.key.indexOf('-')), color:`${occupancy[l.occ]}`, fontSize:'medium'}} position={l.location} />
+                <Marker key={l.key + idx} icon={'/bus.png'} label={{text:l.key.slice(0,l.key.indexOf('-')), color:`${occupancyColours[l.occ]}`, fontSize:'medium'}} position={l.location} />
               ))}
               <AdvancedMarker key='stop'  position={{lat:-36.86226, lng: 174.760945}} >
               <Pin  background={'#B816F0'}  glyphColor={'#000'} borderColor={'#000'} />
@@ -58,4 +58,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default MapDisplay

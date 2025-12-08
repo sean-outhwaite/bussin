@@ -5,12 +5,12 @@ import {
 } from 'react-router'
 
 import App from './components/App'
-import Home from './pages/Home'
+import MapDisplay from './pages/MapDisplay'
 import ArrivalBoard from './pages/ArrivalBoard'
 
 export const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
-    <Route index element={<Home />} />
+    <Route index element={<MapDisplay />} />
     <Route path='/board' element={<ArrivalBoard/>}/>
   </Route>
 )
