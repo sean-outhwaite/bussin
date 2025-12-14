@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
       )
       .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
 
-    const stop: {data:Trips[]} = JSON.parse(response.text)
+    const stop: {data:Trips[]} = response.body
 
     const ids = stop.data.map((t)=> t.attributes.trip_id)
     // Fetches trip updates from the live API
@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
           )
           .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
 
-    const delays: Entity[] = JSON.parse(updates.text).response.entity
+    const delays: Entity[] = updates.body.response.entity
 
     // Combines the delays from the trip updates feed with the static schedule data
     const withDelays = stop.data.map((t)=>{
