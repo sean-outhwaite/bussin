@@ -28,17 +28,22 @@ router.get('/', async (req, res) => {
     // Fetches static schedule data
     const response = await request
       .get(
-        `https://api.at.govt.nz/gtfs/v3/stops/7151-93995941/stoptrips?filter[date]=${finalFormattedDate}&filter[start_hour]=${currentHour -1}&filter%5Bhour_range%5D=3`,
+        `https://api.at.govt.nz/gtfs/v3/stops/7151-93995941/stoptrips?filter[date]=${encodeURIComponent(finalFormattedDate)}&filter[start_hour]=${currentHour -1}&filter%5Bhour_range%5D=3`,
       )
       .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
 
     const stop: {data:Trips[]} = response.body
 
     const ids = stop.data.map((t)=> t.attributes.trip_id)
+
+     if (ids.length === 0) {
+      return res.json([])
+    }
+
     // Fetches trip updates from the live API
     const updates = await request
           .get(
-            `https://api.at.govt.nz/realtime/legacy/tripupdates?tripid=${ids}`,
+            `https://api.at.govt.nz/realtime/legacy/tripupdates?tripid=${encodeURIComponent(ids.join(','))}`,
           )
           .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
 
