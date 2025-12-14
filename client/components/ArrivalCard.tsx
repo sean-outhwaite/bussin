@@ -18,7 +18,7 @@ const ArrivalCard = ({trip}: props)=>{
   }
 
   return (    
-  <div key={trip.id}className='bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-lg shadow-xs hover:bg-neutral-secondary-medium'>
+  <div key={trip.id}className='block max-w-sm p-6 border border-default rounded-lg shadow-md dark:bg-gray-900 bg-slate-50'>
       <p role='paragraph' className='text-blue-500'>{trip.attributes.route_id.slice(0,trip.attributes.route_id.indexOf('-'))}</p>
       <p role='paragraph' >Arrival: <span className={`dark:text-green-300 text-green-600 ${(trip.arrival === 'Now' || trip.arrival === '1 min') && 'animate-pulse' }`}>{trip.arrival}</span></p>
       <p role='paragraph' className='lg:text-sm font-normal'>Actual: <span className='font-bold'>{trip.actual}</span></p>
