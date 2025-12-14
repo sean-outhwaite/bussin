@@ -7,8 +7,6 @@ import { Entity } from '../../models/tripUpdate'
 const apiKey = process.env.subscription_key
 const router = express.Router()
 
-
-
 router.get('/', async (req, res) => {
   const date = new Date()
 
@@ -35,7 +33,6 @@ router.get('/', async (req, res) => {
       .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
 
     const stop: {data:Trips[]} = JSON.parse(response.text)
- 
 
     const ids = stop.data.map((t)=> t.attributes.trip_id)
     // Fetches trip updates from the live API
@@ -47,7 +44,6 @@ router.get('/', async (req, res) => {
 
     const delays: Entity[] = JSON.parse(updates.text).response.entity
 
-
     // Combines the delays from the trip updates feed with the static schedule data
     const withDelays = stop.data.map((t)=>{
       const delay = delays.find((d)=> d.id === t.attributes.trip_id)
@@ -58,15 +54,14 @@ router.get('/', async (req, res) => {
       }
     })
 
-
     // Filters any trips which should have departed already
     const currentTrips = withDelays.filter((t)=> {
       const dateString = new Date(dateTemplate + t.attributes.arrival_time)
       const unixTime = dateString.getTime()
 
       return unixTime + (t.delay * 1000) > date.getTime()
-
     })
+
     // Adds the ETA and Actual arrival times
     const fullTrips = currentTrips.map((t)=>{
     const dateObj = new Date(`${year}-${month}-${day}T${t.attributes.arrival_time}`)
