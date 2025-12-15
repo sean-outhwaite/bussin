@@ -3,6 +3,7 @@ import request from 'superagent'
 import 'dotenv/config'
 import { Trips } from '../../models/trips'
 import { Entity } from '../../models/tripUpdate'
+import { calcEta, filterDeparted } from '../eta-utils'
 
 const apiKey = process.env.subscription_key
 const router = express.Router()
@@ -43,7 +44,7 @@ router.get('/', async (req, res) => {
     // Fetches trip updates from the live API
     const updates = await request
           .get(
-            `https://api.at.govt.nz/realtime/legacy/tripupdates?tripid=${encodeURIComponent(ids.join(','))}`,
+            `https://api.at.govt.nz/realtime/legacy/tripupdates?tripid=${ids}`,
           )
           .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
 
@@ -60,24 +61,10 @@ router.get('/', async (req, res) => {
     })
 
     // Filters any trips which should have departed already
-    const currentTrips = withDelays.filter((t)=> {
-      const dateString = new Date(dateTemplate + t.attributes.arrival_time)
-      const unixTime = dateString.getTime()
-
-      return unixTime + (t.delay * 1000) > date.getTime()
-    })
+    const currentTrips = filterDeparted(withDelays,dateTemplate)
 
     // Adds the ETA and Actual arrival times
-    const fullTrips = currentTrips.map((t)=>{
-    const dateObj = new Date(`${year}-${month}-${day}T${t.attributes.arrival_time}`)
-    const time = dateObj.getTime() + (t.delay * 1000)
-    const compareTime = date.getTime()
-
-    const timeString = new Date(time).toTimeString().slice(0,8)
-    const diff = (time - compareTime) / 1000
-
-    return {...t, actual: timeString  ,arrival: diff > 60 ? `${Math.round(diff / 60)} min` : `Now`}
-    })
+    const fullTrips = calcEta(currentTrips,dateTemplate)
 
    fullTrips.sort((a,b)=> a.actual  < b.actual ?   -1 : 1
    )
