@@ -1,5 +1,6 @@
+import { FullTrip, TripWithDelay } from "../models/trips"
 
-export function filterDeparted(trips, date){
+export function filterDeparted(trips: TripWithDelay[], date: string){
 const currentTrips = trips.filter((t)=> {
       const dateString = new Date(date + t.attributes.arrival_time)
       const unixTime = dateString.getTime()
@@ -9,7 +10,7 @@ const currentTrips = trips.filter((t)=> {
 return currentTrips
   }
 
-export function calcEta(trips, date){
+export function calcEta(trips: TripWithDelay[], date: string): FullTrip[]{
     const fullTrips = trips.map((t)=>{
     const dateObj = new Date(date + t.attributes.arrival_time)
     const time = dateObj.getTime() + (t.delay * 1000)
