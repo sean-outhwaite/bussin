@@ -40,6 +40,6 @@ export interface TripWithDelay extends Trips{
 
 export interface FullTrip extends Trips{
   delay: number,
-  actual: string,
-  arrival: string
+  actualArrival: string,
+  scheduledArrival: string
 }

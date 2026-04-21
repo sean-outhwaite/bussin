@@ -66,7 +66,7 @@ router.get('/', async (req, res) => {
     // Adds the ETA and Actual arrival times
     const fullTrips = calcEta(currentTrips,dateTemplate)
 
-   fullTrips.sort((a,b)=> a.actual  < b.actual ?   -1 : 1
+   fullTrips.sort((a,b)=> a.actualArrival  < b.actualArrival ?   -1 : 1
    )
 
     res.json(fullTrips

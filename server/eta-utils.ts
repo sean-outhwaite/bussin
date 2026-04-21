@@ -19,7 +19,7 @@ export function calcEta(trips: TripWithDelay[], date: string): FullTrip[]{
     const timeString = new Date(time).toTimeString().slice(0,8)
     const diff = (time - compareTime) / 1000
 
-    return {...t, actual: timeString  ,arrival: diff > 60 ? `${Math.round(diff / 60)} min` : `Now`}
+    return {...t, actualArrival: timeString  ,scheduledArrival: diff > 60 ? `${Math.round(diff / 60)} min` : `Now`}
     })
     return fullTrips
 }
