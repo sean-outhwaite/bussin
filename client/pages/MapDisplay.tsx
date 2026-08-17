@@ -3,11 +3,13 @@ import { AdvancedMarker, APIProvider, Map, Marker, Pin } from '@vis.gl/react-goo
 import { useLocations } from '../hooks.tsx'
 import { useOutletContext } from 'react-router'
 import { pageOutletContext } from '../components/App.tsx'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const MapDisplay = () => {
   const {data, isError, isPending, error} = useLocations()
    const {setPage} = useOutletContext<pageOutletContext>()
+
+   const [selectedStop, setSelectedStop] = useState<{name: string, lat: number, lng: number}> ({name:'Stop 1', lat:-36.86226, lng: 174.760945})
 
    useEffect(()=>{
        setPage('home')
@@ -32,13 +34,29 @@ const MapDisplay = () => {
     6: 'FF0000'
   }
 
+  const stops = [
+    {name:'Stop 1', lat:-36.86226, lng: 174.760945},
+    {name:'Stop 2', lat:-36.85343, lng: 174.763339},]
+
   return (
+    <>
+    <div className='flex justify-start'>
+      <select onInput={(e)=> {
+        const stop = stops.find((s)=> s.name === (e.target as HTMLSelectElement).value)
+        if (stop) setSelectedStop(stop)
+      }}>
+        <option value=''>Select a stop</option>
+        {stops.map((s,idx)=>(
+          <option key={s.name + idx} value={s.name}>{s.name}</option>
+        ))}
+      </select>
+    </div>
     <div className='flex justify-center'>
       {latLongs && (
           <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_KEY}>
             <Map
               style={{ width: '80vw', height: '50vh' }}
-              defaultCenter={{ lat: -36.86226, lng: 174.760945 }}
+              center={{ lat: selectedStop.lat, lng: selectedStop.lng }}
               defaultZoom={15}
               gestureHandling="greedy"
               mapId='f570965d1003d0c912a3687f'
@@ -48,13 +66,14 @@ const MapDisplay = () => {
               {latLongs?.map((l,idx) => (
                 <Marker key={l.key + idx} icon={'/bus.png'} label={{text:l.key.slice(0,l.key.indexOf('-')), color:`${occupancyColours[l.occ]}`, fontSize:'medium'}} position={l.location} />
               ))}
-              <AdvancedMarker key='stop'  position={{lat:-36.86226, lng: 174.760945}} >
+              <AdvancedMarker key='stop'  position={{lat:selectedStop.lat, lng: selectedStop.lng}} >
               <Pin  background={'#B816F0'}  glyphColor={'#000'} borderColor={'#000'} />
               </AdvancedMarker>
             </Map>
           </APIProvider>
         )}
     </div>
+    </>
   )
 }
 
