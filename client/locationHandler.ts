@@ -7,8 +7,7 @@ interface OccupancyPointsOfInterest extends PointsOfInterest{
   occ: 0|1|2|3|4|5|6
 }
 
-export const getLatLong = function (locations: string) {
-  const data: Locations = JSON.parse(locations)
+export const getLatLong = function (data: Locations) {
   const arr = data.response.entity
   const activeTrips: OccupancyPointsOfInterest[] = []
 

@@ -22,7 +22,7 @@ router.get('/:stopId', async (req, res) => {
       .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
 
     res.json(
-      locations.text,
+      locations.body,
     )
   } catch (err) {
     console.log(err)

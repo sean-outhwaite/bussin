@@ -9,17 +9,17 @@ const MapDisplay = () => {
   const [selectedStop, setSelectedStop] = useState<{stop_name: string, stop_lat: number, stop_lon: number, stop_id: string}> ({stop_name:'Symonds St', stop_lat:-36.86226, stop_lon: 174.760945, stop_id: '7151-93995941'})
   const {data, isError, isPending, error} = useLocations(selectedStop.stop_id)
   const {data: stopsData, isError: stopsError, isPending: stopsPending, error: stopsErrorObj} = useStops()
-   const {setPage} = useOutletContext<pageOutletContext>()
+  const {setPage} = useOutletContext<pageOutletContext>()
 
 
-   useEffect(()=>{
-       setPage('home')
-     },[setPage])
+  useEffect(()=>{
+      setPage('home')
+    },[setPage])
 
   if (isPending || stopsPending) return <div className='flex justify-center'><img src='/giphy.gif' alt='moving bus'/> </div>
 
-  if (isError) {
-    console.log(error)
+  if (isError || stopsError) {
+    console.log(error || stopsErrorObj)
     return <p>There was an error</p>
   }
 
@@ -36,10 +36,6 @@ const MapDisplay = () => {
   }
 
   const stops = stopsData ? stopsData.map((s)=> s.attributes) : []
-  // [
-  //   {stop_name:'Stop 1', stop_lat:-36.86226, stop_lon: 174.760945},
-  //   {stop_name:'Stop 2', stop_lat:-36.85343, stop_lon: 174.763339},]
-  //   console.log('stopsData', JSON.parse(stopsData).data)
 
   return (
     <>
