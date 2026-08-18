@@ -6,7 +6,7 @@ import { pageOutletContext } from '../components/App.tsx'
 import { useEffect, useState } from 'react'
 
 const MapDisplay = () => {
-  const [selectedStop, setSelectedStop] = useState<{stop_name: string, stop_lat: number, stop_lon: number, stop_id: string}> ({stop_name:'Stop 1', stop_lat:-36.86226, stop_lon: 174.760945, stop_id: '7151-93995941'})
+  const [selectedStop, setSelectedStop] = useState<{stop_name: string, stop_lat: number, stop_lon: number, stop_id: string}> ({stop_name:'Symonds St', stop_lat:-36.86226, stop_lon: 174.760945, stop_id: '7151-93995941'})
   const {data, isError, isPending, error} = useLocations(selectedStop.stop_id)
   const {data: stopsData, isError: stopsError, isPending: stopsPending, error: stopsErrorObj} = useStops()
    const {setPage} = useOutletContext<pageOutletContext>()
@@ -44,7 +44,9 @@ const MapDisplay = () => {
   return (
     <>
     <div className='flex justify-start'>
-      <select onInput={(e)=> {
+      <select
+      value={selectedStop.stop_name}
+      onInput={(e)=> {
         const stop = stops.find((s)=> s.stop_name === (e.target as HTMLSelectElement).value)
         if (stop) setSelectedStop(stop)
       }}>
