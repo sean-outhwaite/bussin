@@ -8,7 +8,7 @@ import { calcEta, filterDeparted } from '../eta-utils'
 const apiKey = process.env.subscription_key
 const router = express.Router()
 
-router.get('/', async (req, res) => {
+router.get('/:stopId', async (req, res) => {
   const date = new Date()
 
   const nztFormattedDate = date.toLocaleString('en-US', {
@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
     // Fetches static schedule data
     const response = await request
       .get(
-        `https://api.at.govt.nz/gtfs/v3/stops/7151-93995941/stoptrips?filter[date]=${encodeURIComponent(finalFormattedDate)}&filter[start_hour]=${currentHour -1}&filter%5Bhour_range%5D=3`,
+        `https://api.at.govt.nz/gtfs/v3/stops/${req.params.stopId}/stoptrips?filter[date]=${encodeURIComponent(finalFormattedDate)}&filter[start_hour]=${currentHour -1}&filter%5Bhour_range%5D=3`,
       )
       .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
 

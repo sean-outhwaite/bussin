@@ -6,10 +6,10 @@ import { TripWithDelay } from '../../models/trips'
 const apiKey = process.env.subscription_key
 const router = express.Router()
 
-router.get('/', async (req, res) => {
+router.get('/:stopId', async (req, res) => {
   try {
     // Fetch trips for the specific stop that haven't arrived yet
-    const response = await request.get('http://localhost:3000/api/v1/trips')
+    const response = await request.get(`http://localhost:3000/api/v1/trips/${req.params.stopId}`)
     const trips = JSON.parse(response.text).map((t: TripWithDelay)=>{
       return t.attributes.trip_id
     })
