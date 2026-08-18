@@ -25,3 +25,13 @@ export function useTrips (){
     }
   })
 }
+
+export function useStops (){
+  return useQuery({
+    queryKey:['stops'],
+    queryFn: async ()=> {
+      const res = await API.getStops()
+      return res
+    }
+  })  
+}

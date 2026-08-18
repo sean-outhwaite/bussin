@@ -13,3 +13,7 @@ export async function getTrips() {
   return response.body
 }
 
+export async function getStops() {
+  const response = await request.get(`${rootURL}/stops`)
+  return response.body
+}
