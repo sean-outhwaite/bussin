@@ -17,3 +17,5 @@ export interface Attributes {
 }
 
 export type Type = "stop";
+
+export type SelectedStop = Pick<Attributes, 'stop_name' | 'stop_lat' | 'stop_lon' | 'stop_id'>

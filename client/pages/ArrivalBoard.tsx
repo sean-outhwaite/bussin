@@ -5,8 +5,8 @@ import { useEffect } from 'react'
 import ArrivalCard from '../components/ArrivalCard.tsx'
 
 const ArrivalBoard = ()=> {
-  const {data, isError, isPending, error} = useTrips('7151-93995941')
-  const {setPage} = useOutletContext<pageOutletContext>()
+  const {setPage, selectedStop} = useOutletContext<pageOutletContext>()
+  const {data, isError, isPending, error} = useTrips(selectedStop.stop_id)
 
   useEffect(()=>{
     setPage('board')

@@ -3,13 +3,12 @@ import { AdvancedMarker, APIProvider, Map, Marker, Pin } from '@vis.gl/react-goo
 import { useLocations, useStops } from '../hooks.tsx'
 import { useOutletContext } from 'react-router'
 import { pageOutletContext } from '../components/App.tsx'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const MapDisplay = () => {
-  const [selectedStop, setSelectedStop] = useState<{stop_name: string, stop_lat: number, stop_lon: number, stop_id: string}> ({stop_name:'Symonds St', stop_lat:-36.86226, stop_lon: 174.760945, stop_id: '7151-93995941'})
+  const {setPage, selectedStop, setSelectedStop} = useOutletContext<pageOutletContext>()
   const {data, isError, isPending, error} = useLocations(selectedStop.stop_id)
   const {data: stopsData, isError: stopsError, isPending: stopsPending, error: stopsErrorObj} = useStops()
-  const {setPage} = useOutletContext<pageOutletContext>()
 
 
   useEffect(()=>{
