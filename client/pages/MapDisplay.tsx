@@ -38,8 +38,9 @@ const MapDisplay = () => {
 
   return (
     <>
-    <div className='flex justify-start'>
+    <div className='flex justify-center'>
       <select
+      className='rounded-md mb-6 p-2 bg-[#ebf5fb] text-[#2d7caf] font-extrabold'
       value={selectedStop.stop_name}
       onInput={(e)=> {
         const stop = stops.find((s)=> s.stop_name === (e.target as HTMLSelectElement).value)
