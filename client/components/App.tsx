@@ -10,7 +10,7 @@ export interface pageOutletContext {
 
 function App() {
 const [page, setPage] = useState('home')
-const [selectedStop, setSelectedStop] = useState<SelectedStop>({stop_name:'Symonds St', stop_lat:-36.86226, stop_lon: 174.760945, stop_id: '7151-93995941'})
+const [selectedStop, setSelectedStop] = useState<SelectedStop>({stop_name:'Symonds St', stop_lat:-36.86226, stop_lon: 174.760945, stop_id: '7151-93995941', stop_code: '7151'})
 
 
   return (

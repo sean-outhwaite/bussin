@@ -4,6 +4,7 @@ import { useLocations, useStops } from '../hooks.tsx'
 import { useOutletContext } from 'react-router'
 import { pageOutletContext } from '../components/App.tsx'
 import { useEffect } from 'react'
+import Select from 'react-select'
 
 const MapDisplay = () => {
   const {setPage, selectedStop, setSelectedStop} = useOutletContext<pageOutletContext>()
@@ -38,19 +39,33 @@ const MapDisplay = () => {
 
   return (
     <>
+  
     <div className='flex justify-center'>
-      <select
-      className='rounded-md mb-6 p-2 bg-[#ebf5fb] text-[#2d7caf] font-extrabold'
-      value={selectedStop.stop_name}
-      onInput={(e)=> {
-        const stop = stops.find((s)=> s.stop_name === (e.target as HTMLSelectElement).value)
+ <Select 
+ onChange={(e)=> {
+        const stop = stops.find((s)=> s.stop_name === e?.value)
         if (stop) setSelectedStop(stop)
-      }}>
-        <option value=''>Select a stop</option>
-        {stops.map((s,idx)=>(
-          <option key={s.stop_name + idx} value={s.stop_name}>{s.stop_name}</option>
-        ))}
-      </select>
+      }}
+ value={{value:selectedStop.stop_name, label:`${selectedStop.stop_name} - ${selectedStop.stop_code}`}}
+ styles = {{
+  container: (provided) => ({
+    ...provided,
+    width: '50%',
+    paddingBottom: '1rem',
+  }),
+  control: (provided) => ({
+    ...provided,
+    backgroundColor: '#ebf5fb',
+    color: '#2d7caf',
+    fontWeight: 'bold',
+  }),
+ menu: (provided) => ({
+    ...provided,
+    color: '#2d7caf',
+    fontWeight: 'bold',
+    backgroundColor: '#ebf5fb',
+  }), 
+ }} options = {stops.map((s) => ({ value: s.stop_name, label: `${s.stop_name} - ${s.stop_code}` }))} />
     </div>
     <div className='flex justify-center'>
       {latLongs && (
