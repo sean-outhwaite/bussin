@@ -81,11 +81,11 @@ const MapDisplay = () => {
           }} 
           options = {stops.map((s) => ({ value: s.stop_code, label: `${s.stop_name} - ${s.stop_code}` }))} />
     </div>
-    <div className='flex justify-center'>
+    <div className='flex w-fit justify-self-center border-[#cb0076] border-4 rounded-lg mt-4'>
       {latLongs && (
           <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_KEY}>
             <Map
-              style={{ width: '80vw', height: '50vh', paddingTop:'1rem' }}
+              style={{ width: '80vw', height: '50vh'}}
               center={{ lat: selectedStop.stop_lat, lng: selectedStop.stop_lon }}
               defaultZoom={15}
               gestureHandling="greedy"
