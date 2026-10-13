@@ -3,18 +3,12 @@ import { AdvancedMarker, APIProvider, Map, Marker, Pin } from '@vis.gl/react-goo
 import { useLocations, useStops } from '../hooks.tsx'
 import { useOutletContext } from 'react-router'
 import { pageOutletContext } from '../components/App.tsx'
-import { useEffect } from 'react'
 import Select from 'react-select'
 
 const MapDisplay = () => {
-  const {setPage, selectedStop, setSelectedStop} = useOutletContext<pageOutletContext>()
+  const { selectedStop, setSelectedStop} = useOutletContext<pageOutletContext>()
   const {data, isError, isPending, error} = useLocations(selectedStop.stop_id)
   const {data: stopsData, isError: stopsError, isPending: stopsPending, error: stopsErrorObj} = useStops()
-
-
-  useEffect(()=>{
-      setPage('home')
-    },[setPage])
 
   if (isPending || stopsPending) return <div className='flex justify-center'><img src='/giphy.gif' alt='moving bus'/> </div>
 
