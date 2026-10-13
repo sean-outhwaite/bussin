@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import * as API from './apiClient'
 import { FullTrip } from "../models/trips";
 import { Stop } from "../models/stop";
@@ -13,7 +13,8 @@ export function useLocations (stopId?: string){
     queryFn: async ()=> {
       const res = await API.getLocations(stopId)
       return res as Locations
-    }
+    },
+    placeholderData: keepPreviousData
   })
 }
 
