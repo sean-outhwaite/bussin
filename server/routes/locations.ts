@@ -1,28 +1,13 @@
 import express from 'express'
-import request from 'superagent'
 import 'dotenv/config'
-import { TripWithDelay } from '../../models/trips'
+import { getBusLocationsForStop } from '../at-api'
 
-const apiKey = process.env.subscription_key
 const router = express.Router()
 
 router.get('/:stopId', async (req, res) => {
   try {
-    // Fetch trips for the specific stop that haven't arrived yet
-    const response = await request.get(`http://localhost:3000/api/v1/trips/${req.params.stopId}`)
-    const trips = JSON.parse(response.text).map((t: TripWithDelay)=>{
-      return t.attributes.trip_id
-    })
-
-    // Fetch locations for those active trips
-    const locations = await request
-      .get(
-        `https://api.at.govt.nz/realtime/legacy/vehiclelocations?tripid=${trips}`,
-      )
-      .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
-
     res.json(
-      locations.body,
+      await getBusLocationsForStop(req.params.stopId),
     )
   } catch (err) {
     console.log(err)
