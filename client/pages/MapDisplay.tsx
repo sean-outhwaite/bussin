@@ -32,7 +32,7 @@ const MapDisplay = () => {
     3: '#f7e379',
     4: '#f2a134',
     5: '#e51f1f',
-    6: 'FF0000'
+    6: '#FF0000'
   }
 
   const stops = stopsData ? stopsData.map((s)=> s.attributes) : []
