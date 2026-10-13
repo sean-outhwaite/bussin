@@ -23,3 +23,21 @@ export function calcEta(trips: TripWithDelay[], date: string): FullTrip[]{
     })
     return fullTrips
 }
+
+export function getAucklandDate(){
+const date = new Date()
+
+  const nztFormattedDate = date.toLocaleString('en-US', {
+    timeZone: 'Pacific/Auckland',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  })
+
+  const [month, day, year] = nztFormattedDate.split('/')
+  const finalFormattedDate = `${year}-${month}-${day}`
+  const currentHour = date.getHours()
+
+  const dateTemplate = `${year}-${month}-${day}T`
+  return { finalFormattedDate, currentHour, dateTemplate }
+}
