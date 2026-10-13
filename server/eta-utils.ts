@@ -1,31 +1,35 @@
-import { FullTrip, TripWithDelay } from "../models/trips"
+import { FullTrip, TripWithDelay } from '../models/trips'
 
-export function filterDeparted(trips: TripWithDelay[], date: string){
-const currentTrips = trips.filter((t)=> {
-      const dateString = new Date(date + t.attributes.arrival_time)
-      const unixTime = dateString.getTime()
+export function filterDeparted(trips: TripWithDelay[], date: string) {
+  const currentTrips = trips.filter((t) => {
+    const dateString = new Date(date + t.attributes.arrival_time)
+    const unixTime = dateString.getTime()
 
-      return unixTime + (t.delay * 1000) > new Date().getTime()
-    })
-return currentTrips
-  }
-
-export function calcEta(trips: TripWithDelay[], date: string): FullTrip[]{
-    const fullTrips = trips.map((t)=>{
-    const dateObj = new Date(date + t.attributes.arrival_time)
-    const time = dateObj.getTime() + (t.delay * 1000)
-    const compareTime = new Date().getTime()
-
-    const timeString = new Date(time).toTimeString().slice(0,8)
-    const diff = (time - compareTime) / 1000
-
-    return {...t, actualArrival: timeString  ,scheduledArrival: diff > 60 ? `${Math.round(diff / 60)} min` : `Now`}
-    })
-    return fullTrips
+    return unixTime + t.delay * 1000 > new Date().getTime()
+  })
+  return currentTrips
 }
 
-export function getAucklandDate(){
-const date = new Date()
+export function calcEta(trips: TripWithDelay[], date: string): FullTrip[] {
+  const fullTrips = trips.map((t) => {
+    const dateObj = new Date(date + t.attributes.arrival_time)
+    const time = dateObj.getTime() + t.delay * 1000
+    const compareTime = new Date().getTime()
+
+    const timeString = new Date(time).toTimeString().slice(0, 8)
+    const diff = (time - compareTime) / 1000
+
+    return {
+      ...t,
+      actualArrival: timeString,
+      scheduledArrival: diff > 60 ? `${Math.round(diff / 60)} min` : `Now`,
+    }
+  })
+  return fullTrips
+}
+
+export function getAucklandDate() {
+  const date = new Date()
 
   const nztFormattedDate = date.toLocaleString('en-US', {
     timeZone: 'Pacific/Auckland',

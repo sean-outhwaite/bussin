@@ -11,8 +11,8 @@ import ArrivalBoard from './pages/ArrivalBoard'
 export const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route index element={<MapDisplay />} />
-    <Route path='/board' element={<ArrivalBoard/>}/>
-  </Route>
+    <Route path="/board" element={<ArrivalBoard />} />
+  </Route>,
 )
 
 const router = createBrowserRouter(routes)

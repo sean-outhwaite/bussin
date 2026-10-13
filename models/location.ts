@@ -20,7 +20,7 @@ export interface EntityVehicle {
   position: Position
   timestamp: number
   vehicle: VehicleVehicle
-  occupancy_status: 0|1|2|3|4|5|6
+  occupancy_status: 0 | 1 | 2 | 3 | 4 | 5 | 6
 }
 
 export interface Position {
@@ -54,8 +54,7 @@ export interface Header {
 export type Poi = { key: string; location: google.maps.LatLngLiteral }
 
 export interface TripUpdate {
-    status:   string;
-    response: Response;
-    error:    null;
+  status: string
+  response: Response
+  error: null
 }
-

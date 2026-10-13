@@ -1,40 +1,39 @@
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import * as API from './apiClient'
-import { FullTrip } from "../models/trips";
-import { Stop } from "../models/stop";
-import { Locations } from "../models/location";
+import { FullTrip } from '../models/trips'
+import { Stop } from '../models/stop'
+import { Locations } from '../models/location'
 
-
-export function useLocations (stopId?: string){
+export function useLocations(stopId?: string) {
   return useQuery({
     enabled: !!stopId,
-    refetchInterval:30000,
-    queryKey:['locations', stopId],
-    queryFn: async ()=> {
+    refetchInterval: 30000,
+    queryKey: ['locations', stopId],
+    queryFn: async () => {
       const res = await API.getLocations(stopId)
       return res as Locations
     },
-    placeholderData: keepPreviousData
+    placeholderData: keepPreviousData,
   })
 }
 
-export function useTrips (stopId?: string){
+export function useTrips(stopId?: string) {
   return useQuery({
-    refetchInterval:30000,
-    queryKey:['trips', stopId],
-    queryFn: async ()=> {
+    refetchInterval: 30000,
+    queryKey: ['trips', stopId],
+    queryFn: async () => {
       const res = await API.getTrips(stopId)
       return res as FullTrip[]
-    }
+    },
   })
 }
 
-export function useStops (){
+export function useStops() {
   return useQuery({
-    queryKey:['stops'],
-    queryFn: async ()=> {
+    queryKey: ['stops'],
+    queryFn: async () => {
       const res = await API.getStops()
       return res as Stop[]
-    }
-  })  
+    },
+  })
 }

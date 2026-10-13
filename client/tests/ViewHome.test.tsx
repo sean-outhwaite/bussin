@@ -1,22 +1,17 @@
 // @vitest-environment jsdom
-import { describe, it, expect,vi } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { renderRoute } from './setup.tsx'
 
+describe('viewing the home page', () => {
+  vi.mock('../components/Home', () => ({
+    default: () => `<div>Map</div>`,
+  }))
 
-describe('viewing the home page', ()=>{
+  it('shows the header', async () => {
+    const { ...screen } = renderRoute('/')
 
- vi.mock( ('../components/Home'), () => ({
-  default:(() => `<div>Map</div>`)
-}))
+    const heading = await screen.findByText('Bussin')
 
-it('shows the header', async()=>{
- 
-
-const {...screen} = renderRoute('/')
-
-const heading = await screen.findByText('Bussin')
-
-expect(heading).toBeVisible()
-})
-
+    expect(heading).toBeVisible()
+  })
 })

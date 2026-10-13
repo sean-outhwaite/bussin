@@ -5,9 +5,7 @@ const router = express.Router()
 
 router.get('/:stopId', async (req, res) => {
   try {
-    res.json(
-      await getBusLocationsForStop(req.params.stopId),
-    )
+    res.json(await getBusLocationsForStop(req.params.stopId))
   } catch (err) {
     console.log(err)
     res.sendStatus(500)
@@ -15,4 +13,3 @@ router.get('/:stopId', async (req, res) => {
 })
 
 export default router
-

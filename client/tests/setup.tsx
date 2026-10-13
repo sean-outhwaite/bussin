@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider, createMemoryRouter } from 'react-router'
 import * as matchers from '@testing-library/jest-dom/matchers'
 import '@testing-library/jest-dom/vitest'
-import {routes} from '../router.tsx'
+import { routes } from '../router.tsx'
 import userEvent from '@testing-library/user-event'
 
 expect.extend(matchers)

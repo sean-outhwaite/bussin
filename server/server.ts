@@ -5,13 +5,12 @@ import locations from './routes/locations.ts'
 import trips from './routes/trips.ts'
 import stops from './routes/stops.ts'
 
-
 const server = express()
 
 server.use(express.json())
 server.use(cors('*' as CorsOptions))
 server.use('/api/v1/locations', locations)
-server.use('/api/v1/trips',trips)
+server.use('/api/v1/trips', trips)
 server.use('/api/v1/stops', stops)
 
 if (process.env.NODE_ENV === 'production') {
