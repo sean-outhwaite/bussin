@@ -1,5 +1,4 @@
 import express from 'express'
-import 'dotenv/config'
 import { getBusLocationsForStop } from '../at-api'
 
 const router = express.Router()

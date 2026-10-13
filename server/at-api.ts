@@ -1,8 +1,9 @@
 import request from 'superagent'
 import 'dotenv/config'
-import { Trips, TripWithDelay, FullTrip } from '../models/trips'
+import { Trips, FullTrip } from '../models/trips'
 import { Entity } from '../models/tripUpdate'
 import { calcEta, filterDeparted, getAucklandDate } from './eta-utils'
+import { Locations } from '../models/location'
 
 const apiKey = process.env.subscription_key
 
@@ -54,7 +55,7 @@ export async function getUpcomingTrips(stopId: string): Promise<FullTrip[]>{
       
 }
 
-export async function getBusLocations(trips: string[]): Promise<TripWithDelay[]>{
+export async function getBusLocations(trips: string[]): Promise<Locations[]>{
       // Fetch locations for those active trips
       const locations = await request
         .get(
@@ -70,4 +71,14 @@ export async function getBusLocationsForStop(stopId: string){
   if (trips.length === 0) return { response: {entity: []}}
 
   return getBusLocations(trips.map((t)=> t.attributes.trip_id))
+}
+
+export async function getStops(){
+  const response = await request
+  .get(
+    `https://api.at.govt.nz/gtfs/v3/stops`,
+  )
+  .set('Ocp-Apim-Subscription-Key', `${apiKey}`)
+
+return response.body.data
 }
