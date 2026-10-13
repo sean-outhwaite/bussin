@@ -16,11 +16,6 @@ router.get('/', async (req, res) => {
 
     const stops: Stop[] = response.body.data
 
-    const ids = stops.map((s)=> s.id)
-    if (ids.length === 0) {
-      return res.json([])
-    }
-
     res.json(
       stops,
     )
