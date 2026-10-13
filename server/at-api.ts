@@ -1,9 +1,8 @@
 import request from 'superagent'
 import 'dotenv/config'
-import { Trips, TripWithDelay } from './../models/trips'
-import { Entity } from './../models/tripUpdate'
+import { Trips, TripWithDelay, FullTrip } from '../models/trips'
+import { Entity } from '../models/tripUpdate'
 import { calcEta, filterDeparted, getAucklandDate } from './eta-utils'
-import { FullTrip } from '../models/trips'
 
 const apiKey = process.env.subscription_key
 

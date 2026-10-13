@@ -13,21 +13,12 @@ export interface Attributes {
     route_id:        string;
     service_date:    Date;
     shape_id:        string;
-    stop_headsign:   StopHeadsign;
-    stop_id:         StopID;
+    stop_headsign:   string;
+    stop_id:         string;
     stop_sequence:   number;
     trip_headsign:   string;
     trip_id:         string;
     trip_start_time: string;
-}
-
-export enum StopHeadsign {
-    Britomart = "BRITOMART",
-    CityCentre = "CITY CENTRE",
-}
-
-export enum StopID {
-    The715193995941 = "7151-93995941",
 }
 
 export enum Type {

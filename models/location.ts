@@ -1,34 +1,3 @@
-export interface LocationData {
-  message: string
-  data: string
-}
-export interface stopTrip {
-  data: Datum[]
-}
-
-export interface Datum {
-  type: string
-  id: string
-  attributes: Attributes
-}
-
-export interface Attributes {
-  arrival_time: string
-  departure_time: string
-  direction_id: number
-  drop_off_type: number
-  pickup_type: number
-  route_id: string
-  service_date: Date
-  shape_id: string
-  stop_headsign: string
-  stop_id: string
-  stop_sequence: number
-  trip_headsign: string
-  trip_id: string
-  trip_start_time: string
-}
-
 export interface Locations {
   status: string
   response: Response
